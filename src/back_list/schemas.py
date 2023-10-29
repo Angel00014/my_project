@@ -1,6 +1,11 @@
 from datetime import datetime
+from typing import Optional
 
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
+
+import uuid
+
+from fastapi_users import schemas
 
 
 class RecordBase(BaseModel):
