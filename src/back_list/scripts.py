@@ -1,20 +1,20 @@
 from fastapi import FastAPI, Depends, HTTPException, APIRouter
 from fastapi_users import FastAPIUsers
 
+import src
 from src.auth.auth import auth_backend
 from src.auth.manager import get_user_manager
 # from fastapi_users import FastAPIUsers
 #
 # from src.auth.auth import auth_backend
 # from src.auth.manager import get_user_manager
-from src.database import engine, SessionLocal
-from models import models
-from models.models import User
+from src.database import engine, SessionLocal, Base
+from src.auth.models import User
 # from src.auth.schemas import UserRead, UserCreate
 from src.back_list import crud, schemas
 from sqlalchemy.orm import Session
 
-models.Base.metadata.create_all(bind=engine)
+Base.metadata.create_all(bind=engine)
 
 # app = FastAPI(
 #     title="My BackList"
@@ -24,7 +24,6 @@ fastapi_users = FastAPIUsers[User, int](
     get_user_manager,
     [auth_backend],
 )
-
 
 current_user = fastapi_users.current_user()
 
@@ -45,7 +44,6 @@ category_router = APIRouter(
 record_router = APIRouter(
     prefix="/record",
     tags=["Record"])
-
 
 
 @category_router.post("/category", response_model=schemas.Category)
