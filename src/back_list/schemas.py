@@ -7,6 +7,8 @@ import uuid
 
 from fastapi_users import schemas
 
+from src.back_list.models import Status
+
 
 class RecordBase(BaseModel):
     name: str
@@ -15,13 +17,24 @@ class RecordBase(BaseModel):
 
 class RecordCreate(RecordBase):
     category_id: int
-    pass
 
 
 class Record(RecordBase):
     id: int
     category_id: int
     created_at: datetime
+
+    class Config:
+        orm_mode = True
+
+
+class RecordUpdate(RecordBase):
+    id: int
+    category_id: int
+
+
+class RecordDelete(BaseModel):
+    pass
 
     class Config:
         orm_mode = True
@@ -38,6 +51,14 @@ class CategoryCreate(CategoryBase):
 class Category(CategoryBase):
     id: int
     created_at: datetime
+
+    class Config:
+        orm_mode = True
+
+
+class CategoryUpdate(CategoryBase):
+    id: int
+    status: Status
 
     class Config:
         orm_mode = True

@@ -1,11 +1,16 @@
 import datetime
+import enum
 
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String, TIMESTAMP, ForeignKey
+from sqlalchemy import Column, Integer, String, TIMESTAMP, ForeignKey, Enum
 from sqlalchemy.orm import relationship
 
+from src.database import Base
 
-Base = declarative_base()
+
+class Status(enum.Enum):
+    active = '1'
+    enabled = '0'
 
 
 class Category(Base):
@@ -13,6 +18,7 @@ class Category(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, nullable=False)
+    status = Column(Enum(Status))
     created_at = Column(TIMESTAMP, default=datetime.datetime.now())
 
 
