@@ -73,7 +73,7 @@ def read_one_category(category_id: int, db: Session = Depends(get_db), user: Use
 
 
 @category_router.patch("/category", response_model=schemas.Category)
-def update_category(category: schemas.CategoryUpdate, db: Session = Depends(get_db)):
+def update_category(category: schemas.CategoryUpdate, db: Session = Depends(get_db), user: User = Depends(current_user)):
     db_category = crud.update_category(db, category=category)
     if db_category is None:
         raise HTTPException(status_code=404, detail="Категория не найдена.")
@@ -107,7 +107,7 @@ def read_one_record(record_id: int, db: Session = Depends(get_db), user: User = 
 
 
 @record_router.patch("/record", response_model=schemas.Record)
-def update_record(record: schemas.RecordUpdate, db: Session = Depends(get_db)):
+def update_record(record: schemas.RecordUpdate, db: Session = Depends(get_db), user: User = Depends(current_user)):
     db_record = crud.update_record(db, record=record)
     if db_record is None:
         raise HTTPException(status_code=404, detail="Запись не найдена.")
@@ -115,7 +115,7 @@ def update_record(record: schemas.RecordUpdate, db: Session = Depends(get_db)):
 
 
 @record_router.delete("/record", response_model=schemas.Record)
-def delete_record(record_id: int, db: Session = Depends(get_db)):
+def delete_record(record_id: int, db: Session = Depends(get_db), user: User = Depends(current_user)):
     db_record = crud.delete_record(db, record_id=record_id)
     # if db_record is not None:
     #     raise HTTPException(status_code=400, detail="Запись не удалена.")
