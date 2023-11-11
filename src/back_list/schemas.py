@@ -51,6 +51,7 @@ class CategoryCreate(CategoryBase):
 class Category(CategoryBase):
     id: int
     created_at: datetime
+    status: Status
 
     class Config:
         orm_mode = True

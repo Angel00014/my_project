@@ -60,8 +60,7 @@ def get_all_records(db: Session,
                     skip: int = 0,
                     limit: int = 100,
                     user_id: int = None):
-    return db.query(src.back_list.models.Record).offset(skip).limit(limit).filter(
-        src.back_list.models.Record.user_id == user_id).all()
+    return db.query(src.back_list.models.Record).filter(src.back_list.models.Record.user_id == user_id).offset(skip).limit(limit).all()
 
 
 def create_record(db: Session, record: schemas.RecordCreate, user_id: int):
