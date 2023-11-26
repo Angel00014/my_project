@@ -1,3 +1,4 @@
+import logging
 import random
 import string
 
@@ -124,7 +125,6 @@ def test_get_all_record_success(get_new_cookies):
 
 
 def test_get_one_record_success(get_new_cookies):
-
     r = requests.get(f'{BASE_URL}{URL_RECORD}/{id_record}',
                      cookies=get_new_cookies)
 
@@ -135,7 +135,6 @@ def test_get_one_record_success(get_new_cookies):
 
 
 def test_delete_record_success(get_new_cookies):
-
     params = {
         'record_id': id_record
     }
@@ -148,7 +147,6 @@ def test_delete_record_success(get_new_cookies):
 
 
 def test_get_one_record_after_delete_success(get_new_cookies):
-
     r = requests.get(f'{BASE_URL}{URL_RECORD}/{id_record}',
                      cookies=get_new_cookies)
 

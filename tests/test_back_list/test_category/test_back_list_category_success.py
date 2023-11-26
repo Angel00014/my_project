@@ -11,6 +11,7 @@ new_name = ''
 
 
 def test_create_category_success(get_new_cookies):
+
     global id_category
 
     headers = {

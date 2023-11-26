@@ -4,21 +4,12 @@ from fastapi_users import FastAPIUsers
 import src
 from src.auth.auth import auth_backend
 from src.auth.manager import get_user_manager
-# from fastapi_users import FastAPIUsers
-#
-# from src.auth.auth import auth_backend
-# from src.auth.manager import get_user_manager
-from src.database import engine, SessionLocal, Base
+
+from src.database import SessionLocal
 from src.auth.models import User
-# from src.auth.schemas import UserRead, UserCreate
+
 from src.back_list import crud, schemas
 from sqlalchemy.orm import Session
-
-# Base.metadata.create_all(bind=engine)
-
-# app = FastAPI(
-#     title="My BackList"
-# )
 
 fastapi_users = FastAPIUsers[User, int](
     get_user_manager,

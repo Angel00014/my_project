@@ -5,8 +5,10 @@ from fastapi_users import BaseUserManager, IntegerIDMixin
 
 from src.auth.db_connect import get_user_db
 from src.auth.models import User
+from src.config import SECRET
 
-SECRET = "SECRET"
+
+# SECRET = "SECRET"
 
 
 class UserManager(IntegerIDMixin, BaseUserManager[User, uuid.UUID]):
