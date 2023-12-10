@@ -25,7 +25,7 @@ class Record(RecordBase):
     created_at: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class RecordUpdate(RecordBase):
@@ -37,7 +37,7 @@ class RecordDelete(BaseModel):
     pass
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class CategoryBase(BaseModel):
@@ -54,7 +54,7 @@ class Category(CategoryBase):
     status: Status
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class CategoryUpdate(CategoryBase):
@@ -62,4 +62,4 @@ class CategoryUpdate(CategoryBase):
     status: Status
 
     class Config:
-        orm_mode = True
+        from_attributes = True
