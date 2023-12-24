@@ -5,6 +5,7 @@ from src.auth.manager import get_user_manager
 from src.auth.auth import auth_backend
 from src.auth.schemas import UserRead, UserCreate
 from src.back_list.scripts import category_router, record_router
+from src.adapter_kafka.scripts import kafka_router
 
 app = FastAPI(
     title="My BackList"
@@ -30,3 +31,5 @@ app.include_router(
 app.include_router(category_router)
 
 app.include_router(record_router)
+
+app.include_router(kafka_router)
