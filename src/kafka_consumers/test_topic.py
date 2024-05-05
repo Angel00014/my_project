@@ -70,14 +70,14 @@ def consume_messages():
     try:
         while True:
             msg = c.poll(1.0)
-            print(f"Сообщение: {msg}", file=sys.stderr)
             if msg is None:
-                print(f"Сообщение: 2", file=sys.stderr)
+                print(f"Сообщение: Новое сообщение не обнаружено", file=sys.stderr)
                 continue
             if msg.error():
-                print(f"Сообщение: 3", file=sys.stderr)
+                print(f"Сообщение: {msg.error()}", file=sys.stderr)
                 print(msg.error())
                 break
+            print(f"Сообщение: {msg}", file=sys.stderr)
             process_message(msg, db=db)
 
     except KeyboardInterrupt:
@@ -87,7 +87,5 @@ def consume_messages():
         db.close()
         c.close()
 
-
-print(f"Сообщение: 0", file=sys.stderr)
 # Вызов функции для чтения сообщений
 consume_messages()

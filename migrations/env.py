@@ -11,7 +11,7 @@ from src.back_list.models import *
 from src import database
 from src.config import DB_USER, DB_HOST, DB_NAME, DB_PASS, DB_PORT
 
-# from src.database import Base
+# from src.database imports Base
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -32,7 +32,7 @@ if config.config_file_name is not None:
 
 # add your model's MetaData object here
 # for 'autogenerate' support
-# from myapp import mymodel
+# from myapp imports mymodel
 # target_metadata = mymodel.Base.metadata
 target_metadata = database.Base.metadata
 

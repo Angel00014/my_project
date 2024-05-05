@@ -15,16 +15,16 @@ services:
     container_name: work_app
     command:
       - /project_dir/docker_instructions/app.sh
+      - bash -c "alembic revision --autogenerate -m "upgrade_new" && alembic upgrade head"
     ports:
       - 1111:8000
-    depends_on:
-      - db
     environment:
       DB_HOST: db
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
 
   zookeeper:
       image: wurstmeister/zookeeper:latest
+      container_name: zookeeper
       ports:
         - "2181:2181"
 
@@ -47,10 +47,11 @@ services:
     build:
       context: .
     container_name: kafka_consumer
-    command: python -m src.kafka_consumers.test_topic
     depends_on:
       - kafka
+      - zookeeper
       - work_app
+    command: python -m src.kafka_consumers.test_topic
     volumes:
       - .:/project_dir
     env_file:

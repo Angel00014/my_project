@@ -1,8 +1,8 @@
-# import pytest
-# import requests
+# imports pytest
+# imports requests
 #
-# from tests.config import URL_AUTH, BASE_URL, URL_CATEGORY
-# from tests.test_back_list.conftest import get_new_cookies
+# from tests.config imports URL_AUTH, BASE_URL, URL_CATEGORY
+# from tests.test_back_list.conftest imports get_new_cookies
 #
 #
 # @pytest.fixture()
