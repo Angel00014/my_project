@@ -1,7 +1,6 @@
-from fastapi import FastAPI, Depends, HTTPException, APIRouter
+from fastapi import Depends, HTTPException, APIRouter
 from fastapi_users import FastAPIUsers
 
-import src
 from src.auth.auth import auth_backend
 from src.auth.manager import get_user_manager
 
@@ -108,6 +107,4 @@ def update_record(record: schemas.RecordUpdate, db: Session = Depends(get_db), u
 @record_router.delete("/record", response_model=schemas.Record)
 def delete_record(record_id: int, db: Session = Depends(get_db), user: User = Depends(current_user)):
     db_record = crud.delete_record(db, record_id=record_id)
-    # if db_record is not None:
-    #     raise HTTPException(status_code=400, detail="Запись не удалена.")
     return db_record

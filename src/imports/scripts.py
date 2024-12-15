@@ -1,19 +1,16 @@
 import json
 import os
-from typing import List
 import logging
 
-from fastapi import FastAPI, Depends, HTTPException, APIRouter
+from fastapi import Depends, HTTPException, APIRouter
 from fastapi_users import FastAPIUsers
 
-import src
 from src.auth.auth import auth_backend
 from src.auth.manager import get_user_manager
 from src.config import IMPORT_RECORDS_SYSTEM_ONE_MOCK
 
 from src.database import SessionLocal
 from src.auth.models import User
-from src.imports.schemas import ImportRecordBase
 
 from src.imports import crud, schemas
 from sqlalchemy.orm import Session

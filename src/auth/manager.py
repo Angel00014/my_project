@@ -8,8 +8,6 @@ from src.auth.models import User
 from src.config import SECRET
 
 
-# SECRET = "SECRET"
-
 
 class UserManager(IntegerIDMixin, BaseUserManager[User, uuid.UUID]):
     reset_password_token_secret = SECRET

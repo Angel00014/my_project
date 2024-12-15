@@ -1,7 +1,6 @@
 import datetime
 import enum
 
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, TIMESTAMP, ForeignKey, Enum
 from sqlalchemy.orm import relationship
 

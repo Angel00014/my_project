@@ -1,12 +1,6 @@
-from dataclasses import asdict
 from datetime import datetime
-from typing import Optional
 
-from pydantic import BaseModel, EmailStr
-
-import uuid
-
-from fastapi_users import schemas
+from pydantic import BaseModel
 
 from src.back_list.models import Status
 

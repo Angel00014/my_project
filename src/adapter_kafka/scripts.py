@@ -3,16 +3,14 @@ import sys
 import logging
 
 from confluent_kafka import Producer
-from fastapi import FastAPI, Depends, HTTPException, APIRouter
+from fastapi import Depends, APIRouter
 from fastapi_users import FastAPIUsers
-from dataclasses import asdict
 
 from src.config import BOOTSTRAP_URL, TOPIC
 
-import src
+
 from src.auth.auth import auth_backend
 from src.auth.manager import get_user_manager
-from src.adapter_kafka.crud import create_record_kafka
 
 from src.database import SessionLocal
 from src.auth.models import User

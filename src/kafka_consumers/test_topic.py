@@ -1,12 +1,11 @@
 import json
 import os
-import asyncio
-import logging
+import sys
 from datetime import datetime
 
 from fastapi import Depends
-from confluent_kafka import Consumer, KafkaException
-import sys
+from confluent_kafka import Consumer
+
 from sqlalchemy.orm import Session
 
 from fastapi_users import FastAPIUsers
@@ -16,7 +15,6 @@ from ..auth.auth import auth_backend
 from ..auth.manager import get_user_manager
 from ..auth.models import User
 from ..database import SessionLocal
-from ..back_list.models import Record
 
 TOPIC = os.environ.get("TOPIC")
 

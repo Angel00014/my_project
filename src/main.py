@@ -1,4 +1,4 @@
-from fastapi import FastAPI, APIRouter
+from fastapi import FastAPI
 from fastapi_users import FastAPIUsers
 from src.auth.models import User
 from src.auth.manager import get_user_manager
@@ -30,9 +30,6 @@ app.include_router(
 )
 
 app.include_router(category_router)
-
 app.include_router(record_router)
-
 app.include_router(kafka_router)
-
 app.include_router(import_router)

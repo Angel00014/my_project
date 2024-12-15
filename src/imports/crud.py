@@ -1,20 +1,14 @@
 import datetime
-import json
+
 import logging
-import os
 
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
-from sqlalchemy import update, insert
-
 import src.back_list.models
 
-from src.back_list import schemas
-
-from src.back_list.models import Status
 from src.imports.schemas import ImportRecordBase
-from src.config import ID_IMPORT_CATEGORY, IMPORT_RECORDS_SYSTEM_ONE_MOCK
+from src.config import ID_IMPORT_CATEGORY
 
 logging.basicConfig(
     filename='app.log',  # Имя файла для записи логов

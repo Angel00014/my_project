@@ -1,7 +1,5 @@
 from typing import Optional
-
 from pydantic import EmailStr, validator, ConfigDict
-
 from fastapi_users import schemas
 
 

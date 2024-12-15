@@ -6,6 +6,12 @@ services:
     container_name: db_app
     env_file:
       - .env
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres -d category_db" ]
+      interval: 5s   # Периодичность проверки — каждые 5 секунд
+      timeout: 3s    # Время ожидания — 3 секунды
+      retries: 5     # После 5 неудачных попыток контейнер будет признан нездоровым
+      start_period: 10s  # Docker будет ожидать 10 секунд перед первой проверкой
 
   work_app:
     build:
@@ -13,20 +19,34 @@ services:
     env_file:
       - .env
     container_name: work_app
-    command:
-      - /project_dir/docker_instructions/app.sh
-      - bash -c "alembic revision --autogenerate -m "upgrade_new" && alembic upgrade head"
+    command: >
+      bash -c "
+      alembic stamp head &&
+      alembic revision --autogenerate -m 'upgrade_new' &&
+      alembic upgrade head &&
+      gunicorn src.main:app --workers 4 --worker-class uvicorn.workers.UvicornWorker --bind=0.0.0.0:8000
+      "
     ports:
       - 1111:8000
+    depends_on:
+      db:
+        condition: service_healthy  # Ждём, пока база данных не станет здоровой
     environment:
       DB_HOST: db
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+    volumes:
+      - .:/project_dir
 
   zookeeper:
       image: wurstmeister/zookeeper:latest
       container_name: zookeeper
       ports:
         - "2181:2181"
+      healthcheck:
+        test: [ "CMD", "nc", "-z", "localhost", "2181" ]
+        interval: 30s
+        retries: 3
+        timeout: 10s
 
   kafka:
       container_name: kafka
@@ -42,18 +62,22 @@ services:
         KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       depends_on:
         - zookeeper
+      healthcheck:
+        test: [ "CMD", "kafka-topics.sh", "--list", "--bootstrap-server", "kafka:9092" ]
+        interval: 30s
+        retries: 3
+        timeout: 10s
 
   kafka_consumer:
     build:
       context: .
     container_name: kafka_consumer
     depends_on:
-      - kafka
-      - zookeeper
-      - work_app
+      kafka:
+        condition: service_healthy  # Ждём, пока Kafka не станет здоровой
+      zookeeper:
+        condition: service_healthy  # Убедимся, что Zookeeper тоже здоров
     command: python -m src.kafka_consumers.test_topic
-    volumes:
-      - .:/project_dir
     env_file:
       - .env
     environment:

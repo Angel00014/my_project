@@ -1,13 +1,11 @@
 import datetime
 
-from sqlalchemy.orm import Session
-
-from sqlalchemy import update, insert
-
 import src.back_list.models
 
-from src.back_list import schemas
+from sqlalchemy.orm import Session
+from sqlalchemy import update, insert
 
+from src.back_list import schemas
 from src.back_list.models import Status
 
 
